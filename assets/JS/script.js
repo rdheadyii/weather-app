@@ -26,7 +26,7 @@ function displayWeath(event){
     event.preventDefault();
     if (city !== "") {
         currentCity = city.val().trim();
-        cityWeath();
+        cityWeath(currentCity);
     } else {
         return;
     }
@@ -38,16 +38,27 @@ function cityWeath(currentCity) {
     fetch(apiUrl)
         .then(function (response) {
             if (response.ok) {
-                console.log(response)
+                console.log(response);
+                response.json().then(function (data) {
+                    console.log(data)
+                });
+            } else {
+                alert('Error: ' + response.statusText);
             }
+        })
+        .catch(function (error) {
+            alert('Unable to connect to OpenWeather')
         });
+
 }
 
 // function display 5 day forecast data from fetch request
     // need icon, temp, humidity, date, wind speed
-var fiveDay = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=" + APIKey;
 
 // create elements to hold each of above
+function weathContainer() {
+    
+}
 
 // function to display 5 day for each of the cards
 
