@@ -1,7 +1,9 @@
 // global variables 
-
+var city = $('#city')
+var searchBtn = $('#search')
+var clearBtn = $('#clear')
 // api key
-const apiKey = "4173452d9b72669e3cd2657d87b52eff";
+const APIKey = "4173452d9b72669e3cd2657d87b52eff";
 
 // weather search history array
 
