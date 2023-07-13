@@ -49,6 +49,8 @@ function cityWeath(currentCity) {
                     var humidity = data.main.humidity + '%';
                     var wind = data.wind.speed;
                     var mph = (wind * 2.237);
+                    forecast(data.name)
+                    weathContainer(data)
                 });
             } else {
                 alert('Error: ' + response.statusText);
@@ -61,10 +63,24 @@ function cityWeath(currentCity) {
 
 // function display 5 day forecast data from fetch request
     // need icon, temp, humidity, date, wind speed
+function forecast(cityName) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIKey;
+    fetch(apiUrl)
+        .then(function (response) {
+            if (response.ok) {
+                console.log(response);
+                response.json().then(function (data) {
+                    console.log(data)
+            });
+        }
+        })
+}
 
 // create elements to hold each of above
-function weathContainer() {
-    
+function weathContainer(todayWeath) {
+    var currentTitle = document.createElement('h2');
+    currentTitle.textContent = (data.name, dayjs(), data.weather[0].icon);
+    currentTitle.append(currentWeath);
 }
 
 // function to display 5 day for each of the cards
