@@ -1,8 +1,7 @@
 // global variables 
 
 // api key
-
-// openweather api main link
+const apiKey = "4173452d9b72669e3cd2657d87b52eff";
 
 // weather search history array
 
@@ -17,9 +16,11 @@
 // function to display current weather from fetch request
     // need icon, temp, humidity, date, wind speed, location name
 
+var currentWeath = "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}";
+
 // function display 5 day forecast data from fetch request
     // need icon, temp, humidity, date, wind speed
-
+var fiveDay = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}";
 
 // create elements to hold each of above
 
