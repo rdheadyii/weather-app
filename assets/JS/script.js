@@ -2,7 +2,10 @@
 var city = $('#city')
 var searchBtn = $('#search')
 var clearBtn = $('#clear')
-var currentWeath = $('#weather')
+var currentWeath = $('.curr-title')
+var currentTemp = $('.temp')
+var currentHumid = $('.humid')
+var currentWind = $('.wind')
 var fiveDayWeath = $('#five-day')
 var currentCity = '';
 
@@ -41,16 +44,22 @@ function cityWeath(currentCity) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data)
-                    var location = data.name;
-                    var weathIcon = data.weather[0].icon;
-                    var iconUrl = "https://openweathermap.org/img/wn/"+ weathIcon + "@2x.png";
-                    var today = dayjs();
-                    var tempF = (data.main.temp -273.15) * 1.8 + 32;
-                    var humidity = data.main.humidity + '%';
-                    var wind = data.wind.speed;
-                    var mph = (wind * 2.237);
+                    let location = data.name;
+                    let weathIcon = data.weather[0].icon;
+                    let iconUrl = "https://openweathermap.org/img/wn/"+ weathIcon + "@2x.png";
+                    let today = dayjs().format('(MM/DD/YYYY)');
+                    $(currentWeath).append(location + " ", today + " ", "<img src="+iconUrl+">")
+
+                    let tempF = (data.main.temp -273.15) * 1.8 + 32;
+                    $(currentTemp).append("Temperature: " + tempF + " F")
+
+                    let humidity = data.main.humidity + '%';
+                    $(currentHumid).append("Humidity: " + humidity)
+
+                    let wind = data.wind.speed;
+                    let mph = (wind * 2.237);
+                    $(currentWind).append("Wind Speed: " + mph + " mph")
                     forecast(data.name)
-                    weathContainer(data)
                 });
             } else {
                 alert('Error: ' + response.statusText);
@@ -75,18 +84,6 @@ function forecast(cityName) {
         }
         })
 }
-
-// create elements to hold each of above
-function weathContainer(todayWeath) {
-    var currentTitle = document.createElement('h2');
-    currentTitle.textContent = (data.name, dayjs(), data.weather[0].icon);
-    currentTitle.append(currentWeath);
-}
-
-// function to display 5 day for each of the cards
-
-// function for geolocation with lat lon
-    // call function above inside so data is usable
 
 // function for search button to work
 $('#search').on('click', displayWeath);
