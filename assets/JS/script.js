@@ -41,6 +41,14 @@ function cityWeath(currentCity) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data)
+                    var location = data.name;
+                    var weathIcon = data.weather[0].icon;
+                    var iconUrl = "https://openweathermap.org/img/wn/"+ weathIcon + "@2x.png";
+                    var today = dayjs();
+                    var tempF = (data.main.temp -273.15) * 1.8 + 32;
+                    var humidity = data.main.humidity + '%';
+                    var wind = data.wind.speed;
+                    var mph = (wind * 2.237);
                 });
             } else {
                 alert('Error: ' + response.statusText);
@@ -49,7 +57,6 @@ function cityWeath(currentCity) {
         .catch(function (error) {
             alert('Unable to connect to OpenWeather')
         });
-
 }
 
 // function display 5 day forecast data from fetch request
