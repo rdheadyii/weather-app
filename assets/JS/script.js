@@ -2,11 +2,15 @@
 var city = $('#city')
 var searchBtn = $('#search')
 var clearBtn = $('#clear')
+var currentWeath = $('#weather')
+var fiveDayWeath = $('#five-day')
+var currentCity = '';
+
 // api key
 const APIKey = "4173452d9b72669e3cd2657d87b52eff";
 
 // weather search history array
-
+var searchedWeath = [];
 
 // function to display search history
     // loop over history array and count down so most recent at the top
@@ -18,11 +22,30 @@ const APIKey = "4173452d9b72669e3cd2657d87b52eff";
 // function to display current weather from fetch request
     // need icon, temp, humidity, date, wind speed, location name
 
-var currentWeath = "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}";
+function displayWeath(event){
+    event.preventDefault();
+    if (city !== "") {
+        currentCity = city.val().trim();
+        cityWeath();
+    } else {
+        return;
+    }
+};
+
+function cityWeath(currentCity) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&appid=" + APIKey;
+
+    fetch(apiUrl)
+        .then(function (response) {
+            if (response.ok) {
+                console.log(response)
+            }
+        });
+}
 
 // function display 5 day forecast data from fetch request
     // need icon, temp, humidity, date, wind speed
-var fiveDay = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}";
+var fiveDay = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=" + APIKey;
 
 // create elements to hold each of above
 
@@ -32,5 +55,6 @@ var fiveDay = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={l
     // call function above inside so data is usable
 
 // function for search button to work
+$('#search').on('click', displayWeath);
 
 // function for history buttons to work
